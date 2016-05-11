@@ -1,0 +1,30 @@
+<m:oMathPara>
+        <m:oMath>
+          <m:rad>
+            <m:radPr>
+              <m:ctrlPr>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                  <w:i/>
+                </w:rPr>
+              </m:ctrlPr>
+            </m:radPr>
+            <m:deg>
+              <m:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                </w:rPr>
+                <m:t>2</m:t>
+              </m:r>
+            </m:deg>
+            <m:e>
+              <m:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                </w:rPr>
+                <m:t>1</m:t>
+              </m:r>
+            </m:e>
+          </m:rad>
+        </m:oMath>
+      </m:oMathPara>

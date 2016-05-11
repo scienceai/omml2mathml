@@ -1,0 +1,22 @@
+<m:oMathPara>
+        <m:oMath>
+          <m:borderBox>
+            <m:borderBoxPr>
+              <m:ctrlPr>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                  <w:i/>
+                </w:rPr>
+              </m:ctrlPr>
+            </m:borderBoxPr>
+            <m:e>
+              <m:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                </w:rPr>
+                <m:t>ax+b</m:t>
+              </m:r>
+            </m:e>
+          </m:borderBox>
+        </m:oMath>
+      </m:oMathPara>

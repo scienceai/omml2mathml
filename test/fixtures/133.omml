@@ -1,0 +1,111 @@
+<m:oMathPara>
+        <m:oMath>
+          <m:func>
+            <m:funcPr>
+              <m:ctrlPr>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                  <w:i/>
+                </w:rPr>
+              </m:ctrlPr>
+            </m:funcPr>
+            <m:fName>
+              <m:limLow>
+                <m:limLowPr>
+                  <m:ctrlPr>
+                    <w:rPr>
+                      <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                      <w:i/>
+                    </w:rPr>
+                  </m:ctrlPr>
+                </m:limLowPr>
+                <m:e>
+                  <m:r>
+                    <m:rPr>
+                      <m:sty m:val="p"/>
+                    </m:rPr>
+                    <w:rPr>
+                      <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                    </w:rPr>
+                    <m:t>lim</m:t>
+                  </m:r>
+                </m:e>
+                <m:lim>
+                  <m:r>
+                    <w:rPr>
+                      <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                    </w:rPr>
+                    <m:t>n→∞</m:t>
+                  </m:r>
+                </m:lim>
+              </m:limLow>
+            </m:fName>
+            <m:e>
+              <m:sSup>
+                <m:sSupPr>
+                  <m:ctrlPr>
+                    <w:rPr>
+                      <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                      <w:i/>
+                    </w:rPr>
+                  </m:ctrlPr>
+                </m:sSupPr>
+                <m:e>
+                  <m:d>
+                    <m:dPr>
+                      <m:ctrlPr>
+                        <w:rPr>
+                          <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                          <w:i/>
+                        </w:rPr>
+                      </m:ctrlPr>
+                    </m:dPr>
+                    <m:e>
+                      <m:r>
+                        <w:rPr>
+                          <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                        </w:rPr>
+                        <m:t>1+</m:t>
+                      </m:r>
+                      <m:f>
+                        <m:fPr>
+                          <m:ctrlPr>
+                            <w:rPr>
+                              <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                              <w:i/>
+                            </w:rPr>
+                          </m:ctrlPr>
+                        </m:fPr>
+                        <m:num>
+                          <m:r>
+                            <w:rPr>
+                              <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                            </w:rPr>
+                            <m:t>1</m:t>
+                          </m:r>
+                        </m:num>
+                        <m:den>
+                          <m:r>
+                            <w:rPr>
+                              <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                            </w:rPr>
+                            <m:t>n</m:t>
+                          </m:r>
+                        </m:den>
+                      </m:f>
+                    </m:e>
+                  </m:d>
+                </m:e>
+                <m:sup>
+                  <m:r>
+                    <w:rPr>
+                      <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                    </w:rPr>
+                    <m:t>n</m:t>
+                  </m:r>
+                </m:sup>
+              </m:sSup>
+            </m:e>
+          </m:func>
+        </m:oMath>
+      </m:oMathPara>

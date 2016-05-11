@@ -1,0 +1,23 @@
+<m:oMathPara>
+        <m:oMath>
+          <m:box>
+            <m:boxPr>
+              <m:diff m:val="1"/>
+              <m:ctrlPr>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                  <w:i/>
+                </w:rPr>
+              </m:ctrlPr>
+            </m:boxPr>
+            <m:e>
+              <m:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                </w:rPr>
+                <m:t>dθ</m:t>
+              </m:r>
+            </m:e>
+          </m:box>
+        </m:oMath>
+      </m:oMathPara>

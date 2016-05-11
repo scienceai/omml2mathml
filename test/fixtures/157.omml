@@ -1,0 +1,42 @@
+<m:oMathPara>
+        <m:oMath>
+          <m:m>
+            <m:mPr>
+              <m:mcs>
+                <m:mc>
+                  <m:mcPr>
+                    <m:count m:val="1"/>
+                    <m:mcJc m:val="center"/>
+                  </m:mcPr>
+                </m:mc>
+              </m:mcs>
+              <m:ctrlPr>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                  <w:i/>
+                </w:rPr>
+              </m:ctrlPr>
+            </m:mPr>
+            <m:mr>
+              <m:e>
+                <m:r>
+                  <w:rPr>
+                    <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                  </w:rPr>
+                  <m:t>a</m:t>
+                </m:r>
+              </m:e>
+            </m:mr>
+            <m:mr>
+              <m:e>
+                <m:r>
+                  <w:rPr>
+                    <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                  </w:rPr>
+                  <m:t>b</m:t>
+                </m:r>
+              </m:e>
+            </m:mr>
+          </m:m>
+        </m:oMath>
+      </m:oMathPara>

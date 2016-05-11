@@ -1,0 +1,33 @@
+<m:oMathPara>
+        <m:oMath>
+          <m:func>
+            <m:funcPr>
+              <m:ctrlPr>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                  <w:i/>
+                </w:rPr>
+              </m:ctrlPr>
+            </m:funcPr>
+            <m:fName>
+              <m:r>
+                <m:rPr>
+                  <m:sty m:val="p"/>
+                </m:rPr>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                </w:rPr>
+                <m:t>sinh</m:t>
+              </m:r>
+            </m:fName>
+            <m:e>
+              <m:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                </w:rPr>
+                <m:t>x</m:t>
+              </m:r>
+            </m:e>
+          </m:func>
+        </m:oMath>
+      </m:oMathPara>

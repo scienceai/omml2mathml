@@ -1,0 +1,38 @@
+<m:oMathPara>
+        <m:oMath>
+          <m:sSubSup>
+            <m:sSubSupPr>
+              <m:ctrlPr>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                  <w:i/>
+                </w:rPr>
+              </m:ctrlPr>
+            </m:sSubSupPr>
+            <m:e>
+              <m:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                </w:rPr>
+                <m:t>1</m:t>
+              </m:r>
+            </m:e>
+            <m:sub>
+              <m:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                </w:rPr>
+                <m:t>3</m:t>
+              </m:r>
+            </m:sub>
+            <m:sup>
+              <m:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                </w:rPr>
+                <m:t>2</m:t>
+              </m:r>
+            </m:sup>
+          </m:sSubSup>
+        </m:oMath>
+      </m:oMathPara>

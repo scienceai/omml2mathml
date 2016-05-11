@@ -1,0 +1,111 @@
+<m:oMathPara>
+        <m:oMath>
+          <m:func>
+            <m:funcPr>
+              <m:ctrlPr>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                  <w:i/>
+                </w:rPr>
+              </m:ctrlPr>
+            </m:funcPr>
+            <m:fName>
+              <m:r>
+                <m:rPr>
+                  <m:sty m:val="p"/>
+                </m:rPr>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                </w:rPr>
+                <m:t>tan</m:t>
+              </m:r>
+            </m:fName>
+            <m:e>
+              <m:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                </w:rPr>
+                <m:t>θ</m:t>
+              </m:r>
+            </m:e>
+          </m:func>
+          <m:r>
+            <w:rPr>
+              <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+            </w:rPr>
+            <m:t>=</m:t>
+          </m:r>
+          <m:f>
+            <m:fPr>
+              <m:ctrlPr>
+                <w:rPr>
+                  <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                  <w:i/>
+                </w:rPr>
+              </m:ctrlPr>
+            </m:fPr>
+            <m:num>
+              <m:func>
+                <m:funcPr>
+                  <m:ctrlPr>
+                    <w:rPr>
+                      <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                      <w:i/>
+                    </w:rPr>
+                  </m:ctrlPr>
+                </m:funcPr>
+                <m:fName>
+                  <m:r>
+                    <m:rPr>
+                      <m:sty m:val="p"/>
+                    </m:rPr>
+                    <w:rPr>
+                      <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                    </w:rPr>
+                    <m:t>sin</m:t>
+                  </m:r>
+                </m:fName>
+                <m:e>
+                  <m:r>
+                    <w:rPr>
+                      <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                    </w:rPr>
+                    <m:t>θ</m:t>
+                  </m:r>
+                </m:e>
+              </m:func>
+            </m:num>
+            <m:den>
+              <m:func>
+                <m:funcPr>
+                  <m:ctrlPr>
+                    <w:rPr>
+                      <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                      <w:i/>
+                    </w:rPr>
+                  </m:ctrlPr>
+                </m:funcPr>
+                <m:fName>
+                  <m:r>
+                    <m:rPr>
+                      <m:sty m:val="p"/>
+                    </m:rPr>
+                    <w:rPr>
+                      <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                    </w:rPr>
+                    <m:t>cos</m:t>
+                  </m:r>
+                </m:fName>
+                <m:e>
+                  <m:r>
+                    <w:rPr>
+                      <w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/>
+                    </w:rPr>
+                    <m:t>θ</m:t>
+                  </m:r>
+                </m:e>
+              </m:func>
+            </m:den>
+          </m:f>
+        </m:oMath>
+      </m:oMathPara>
