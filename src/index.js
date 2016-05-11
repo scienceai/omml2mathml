@@ -261,6 +261,25 @@ export default function omml2mathml (omml) {
         });
       }
     )
+    .match(
+      m.el('m:eqArr'),
+      (src, out, w) => {
+        let mtable = el('mtable', {}, out);
+        select('m:e', src)
+          .forEach(me => {
+            let mtr = el('mtr', {}, mtable)
+              , mtd = el('mtd', {}, mtr)
+              , scrLvl = selectAttr('m:argPr[last()]/m:scrLvl', 'm:val', me)
+              , outer
+            ;
+            if (scrLvl !== '0' || !scrLvl) outer = el('mrow', {}, mtd);
+            else outer = el('mstyle', { scriptlevel: scrLvl }, mtd);
+            el('maligngroup', {}, outer);
+            createEqArrRow(w, src, outer, 1, select('*[1]', me)[0]);
+          })
+        ;
+      }
+    )
 
     .run(omml)
   ;
@@ -325,6 +344,59 @@ function parseMT (ctx, out, { toParse = '', scr, sty, nor }) {
     ;
     mn.textContent = num;
     parseMT(ctx, out, { toParse: toParse.substr(num.length), scr, sty, nor });
+  }
+}
+
+function parseEqArrMr (ctx, out, { toParse = '', scr, sty, nor, align }) {
+  if (!toParse.length) return;
+  if (toParse[0] === '&') {
+    el(align ? 'malignmark' : 'maligngroup', {}, out);
+    parseEqArrMr(ctx, out, {
+      toParse:  toParse.substr(1),
+      align:    !align,
+      scr, sty, nor,
+    });
+  }
+  else {
+    let firstOper = rxIndexOf(toParse, oprx)
+      , firstNum = rxIndexOf(toParse, /\d/)
+      , startsWithOper = (firstOper === 1)
+      , startsWithNum = (firstNum === 1)
+    ;
+    if (!startsWithOper && !startsWithNum) {
+      if (!nor) {
+        let mi = el('mi', tokenAttributes({ scr, sty, nor, charToPrint: 1, tokenType: 'mi' }), out);
+        mi.textContent = nbsp(toParse.substr(0, 1));
+      }
+      else {
+        let mt = el('mtext', {}, out);
+        mt.textContent = nbsp(toParse.substr(0, 1));
+      }
+      parseEqArrMr(ctx, out, { toParse: toParse.substr(1), scr, sty, nor, align });
+    }
+    else if (startsWithOper) {
+      if (!nor) {
+        let mo = el('mo', tokenAttributes({ nor, charToPrint: 1, tokenType: 'mo' }), out);
+        mo.textContent = toParse.substr(0, 1);
+      }
+      else {
+        let mt = el('mtext', {}, out);
+        mt.textContent = toParse.substr(0, 1);
+      }
+      parseEqArrMr(ctx, out, { toParse: toParse.substr(1), scr, sty, nor, align });
+    }
+    else {
+      let num = numStart(toParse);
+      if (!nor) {
+        let mn = el('mN', tokenAttributes({ sty: 'p', nor, charToPrint: 1, tokenType: 'mn' }), out);
+        mn.textContent = toParse.substr(0, num.length);
+      }
+      else {
+        let mt = el('mtext', {}, out);
+        mt.textContent = toParse.substr(0, num.length);
+      }
+      parseEqArrMr(ctx, out, { toParse: toParse.substr(num.length), scr, sty, nor, align });
+    }
   }
 }
 
@@ -402,4 +474,30 @@ function outputNAryMO (src, out, cur, grow = false) {
     , val = selectAttr('./m:naryPr[last()]/m:chr', 'm:val', src)
   ;
   mo.textContent = val || '\u222b';
+}
+
+function createEqArrRow (w, src, out, align, cur) {
+  let allMt = select('m:t', cur).map(mt => mt.textContent).join('');
+  if (select('self::m:r', cur)[0]) {
+    let nor = selectAttr('m:rPr[last()]/m:nor', 'm:val', src) || false;
+    if (nor) nor = forceFalse(nor);
+    parseEqArrMr(src, out, {
+      toParse:  allMt,
+      scr:      selectAttr('../m:rPr[last()]/m:scr', 'm:val', src),
+      sty:      selectAttr('../m:rPr[last()]/m:sty', 'm:val', src),
+      nor,
+      align,
+    });
+  }
+  else {
+    w.walk(out, cur);
+  }
+  if (select('following-sibling::*', cur).length) {
+    let amp = countAmp(allMt);
+    createEqArrRow(w, src, out, (align + (amp % 2)) % 2, select('following-sibling::*', cur)[0]);
+  }
+}
+
+function countAmp (allMt) {
+  return (allMt || '').match(/&/g).length;
 }
