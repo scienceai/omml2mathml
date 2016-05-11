@@ -153,6 +153,37 @@ export default function omml2mathml (omml) {
         w.walk(row3, select('m:sup[1]', src));
       }
     )
+    .match(
+      m.el('m:sPre'),
+      (src, out, w) => {
+        let outer = el('mmultiscripts', {}, out)
+          , row = el('mrow', {}, outer)
+        ;
+        w.walk(row, select('m:e[1]', src));
+        el('mprescripts', {}, outer);
+        outputScript(w, outer, select('m:sub[1]', src));
+        outputScript(w, outer, select('m:sup[1]', src));
+      }
+    )
+    .match(
+      m.el('m:m'),
+      (src, out, w) => {
+        let mcjc = selectAttr('m:mPr[last()]/m:mcs/m:mc/m:mcPr[last()]/m:mcJc/', 'm:val', src)
+          , outer = el('mtable', mcjc ? { columnalign: mcjc } : {}, out)
+        ;
+        select('./m:mr', src)
+          .forEach(mr => {
+            let mtr = el('mtr', {}, outer);
+            select('./m:me', mr)
+              .forEach(me => {
+                let mtd = el('mtd', {}, mtr);
+                w.walk(mtd, me);
+              })
+            ;
+          })
+        ;
+      }
+    )
 
     .run(omml)
   ;
@@ -280,4 +311,12 @@ function numStart (str) {
     ret = m;
   });
   return ret;
+}
+
+function outputScript (w, out, cur) {
+  if (cur && cur.length) {
+    let row = el('mrow', {}, out);
+    w.walk(row, cur);
+  }
+  else el('none', {}, out);
 }
