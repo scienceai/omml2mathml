@@ -280,6 +280,19 @@ export default function omml2mathml (omml) {
         ;
       }
     )
+    .match(
+      m.el('m:func'),
+      (src, out, w) => {
+        let outer = el('mrow', {}, out)
+          , row1 = el('mrow', {}, outer)
+        ;
+        select('m:fName', src).forEach(fn => w.walk(row1, fn));
+        let mo = el('mo', {}, outer);
+        mo.textContent = '\u2061';
+        let row2 = el('mrow', {}, outer);
+        w.walk(row2, select('m:e', src));
+      }
+    )
 
     .run(omml)
   ;
