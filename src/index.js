@@ -243,6 +243,24 @@ export default function omml2mathml (omml) {
         w.walk(erow, select('m:e[1]', src));
       }
     )
+    .match(
+      m.el('m:d'),
+      (src, out, w) => {
+        let attr = {}
+          , begChr = selectAttr('m:dPr[1]/m:begChr', 'm:val', src)
+          , endChr = selectAttr('m:dPr[1]/m:endChr', 'm:val', src)
+          , sepChr = selectAttr('m:dPr[1]/m:sepChr', 'm:val', src) || '|'
+        ;
+        if (begChr && begChr !== '(') attr.open = begChr;
+        if (endChr && endChr !== ')') attr.close = endChr;
+        if (sepChr !== ',') attr.separators = sepChr;
+        let mfenced = el('mfenced', attr, out);
+        select('m:e', src).forEach(me => {
+          let row = el('mrow', {}, mfenced);
+          w.walk(row, me);
+        });
+      }
+    )
 
     .run(omml)
   ;
