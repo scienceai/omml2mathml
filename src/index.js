@@ -514,3 +514,34 @@ function createEqArrRow (w, src, out, align, cur) {
 function countAmp (allMt) {
   return (allMt || '').match(/&/g).length;
 }
+
+let combiMap = {
+  '\u0306': '\u02D8',
+  '\u032e': '\u02D8',
+  '\u0312': '\u00B8',
+  '\u0327': '\u00B8',
+  '\u0300': '\u0060',
+  '\u0316': '\u0060',
+  '\u0305': '\u002D',
+  '\u0332': '\u002D',
+  '\u0323': '\u002E',
+  '\u0307': '\u02D9',
+  '\u030B': '\u02DD',
+  '\u0317': '\u00B4',
+  '\u0301': '\u00B4',
+  '\u0330': '\u007E',
+  '\u0303': '\u007E',
+  '\u0324': '\u00A8',
+  '\u0308': '\u00A8',
+  '\u032C': '\u02C7',
+  '\u030C': '\u02C7',
+  '\u0302': '\u005E',
+  '\u032D': '\u005E',
+  '\u20D7': '\u2192',
+  '\u20EF': '\u2192',
+  '\u20D6': '\u2190',
+  '\u20EE': '\u2190',
+};
+function toNonCombining (ch) {
+  return combiMap[ch] || ch;
+}
