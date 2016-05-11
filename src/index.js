@@ -59,8 +59,10 @@ export default function omml2mathml (omml) {
         ;
         let numRow = el('mrow', {}, outer);
         w.walk(numRow, select('m:num[1]', src));
-        let mo = el('mo', {}, outer);
-        mo.textContent = '/';
+        if (type === 'lin') {
+          let mo = el('mo', {}, outer);
+          mo.textContent = '/';
+        }
         let denRow = el('mrow', {}, outer);
         w.walk(denRow, select('m:den[1]', src));
       }
@@ -68,7 +70,9 @@ export default function omml2mathml (omml) {
     .match(
       m.el('m:r'),
       (src, out) => {
-        let nor = forceFalse(selectAttr('m:rPr[last()]/m:nor', 'm:val', src));
+        let nor = selectAttr('m:rPr[last()]/m:nor', 'm:val', src);
+        if (!nor) nor = false;
+        else nor = forceFalse(nor);
         if (nor) {
           let mtext = el('mtext', {}, out);
           mtext.textContent = nbsp(select('.//m:t', src)

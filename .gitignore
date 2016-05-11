@@ -35,4 +35,5 @@ node_modules
 # local stuff
 dist
 src/omml2mathml.xsl
+src/omml2mathml.orig.xsl
 scratch
