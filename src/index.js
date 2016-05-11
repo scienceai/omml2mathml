@@ -209,7 +209,7 @@ export default function omml2mathml (omml) {
         if (subHide) subHide = forceFalse(subHide);
         let supHide = selectAttr('m:naryPr[last()]/m:supHide', 'm:val', src) || false;
         if (supHide) supHide = forceFalse(supHide);
-        let limLocSubSup = selectAttr('m:naryPr[last()]/m:limLoc', 'm:val', src);
+        let limLocSubSup = selectAttr('m:naryPr[last()]/m:limLoc', 'm:val', src).toLowerCase();
         limLocSubSup = (limLocSubSup === '' || limLocSubSup === 'subsup');
         let grow = selectAttr('m:naryPr[last()]/m:grow', 'm:val', src) || false;
         if (grow) grow = forceFalse(grow);
