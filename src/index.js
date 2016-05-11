@@ -202,6 +202,47 @@ export default function omml2mathml (omml) {
         }
       }
     )
+    .match(
+      m.el('m:nary'),
+      (src, out, w) => {
+        let subHide = selectAttr('m:naryPr[last()]/m:subHide', 'm:val', src) || false;
+        if (subHide) subHide = forceFalse(subHide);
+        let supHide = selectAttr('m:naryPr[last()]/m:supHide', 'm:val', src) || false;
+        if (supHide) supHide = forceFalse(supHide);
+        let limLocSubSup = selectAttr('m:naryPr[last()]/m:limLoc', 'm:val', src);
+        limLocSubSup = (limLocSubSup === '' || limLocSubSup === 'subsup');
+        let grow = selectAttr('m:naryPr[last()]/m:grow', 'm:val', src) || false;
+        if (grow) grow = forceFalse(grow);
+
+        let mrow = el('mrow', {}, out);
+        if (supHide && subHide) {
+          outputNAryMO(src, mrow, src, grow);
+        }
+        else if (subHide) {
+          let outer = el(limLocSubSup ? 'msup' : 'mover', {}, mrow);
+          outputNAryMO(src, outer, src, grow);
+          let subrow = el('mrow', {}, outer);
+          w.walk(subrow, select('m:sup[1]', src));
+        }
+        else if (supHide) {
+          let outer = el(limLocSubSup ? 'msub' : 'munder', {}, mrow);
+          outputNAryMO(src, outer, src, grow);
+          let subrow = el('mrow', {}, outer);
+          w.walk(subrow, select('m:sub[1]', src));
+        }
+        else {
+          let outer = el(limLocSubSup ? 'msubsup' : 'munderover', {}, mrow);
+          outputNAryMO(src, outer, src, grow);
+          let subrow1 = el('mrow', {}, outer)
+            , subrow2 = el('mrow', {}, outer)
+          ;
+          w.walk(subrow1, select('m:sub[1]', src));
+          w.walk(subrow2, select('m:sup[1]', src));
+        }
+        let erow = el('mrow', {}, mrow);
+        w.walk(erow, select('m:e[1]', src));
+      }
+    )
 
     .run(omml)
   ;
@@ -336,4 +377,11 @@ function outputScript (w, out, cur) {
     w.walk(row, cur);
   }
   else el('none', {}, out);
+}
+
+function outputNAryMO (src, out, cur, grow = false) {
+  let mo = el('mo', { stretchy: grow ? 'true' : 'false' }, out)
+    , val = selectAttr('./m:naryPr[last()]/m:chr', 'm:val', src)
+  ;
+  mo.textContent = val || '\u222b';
 }
