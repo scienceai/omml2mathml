@@ -12,9 +12,9 @@ let MATH_NS = 'http://www.w3.org/1998/Math/MathML'
       m:  'http://schemas.openxmlformats.org/officeDocument/2006/math',
     }
   , select = xpath.useNamespaces(nsMap)
-  , selectAttr = (path, attr, ctx) => {
+  , selectAttr = (path, attr, ctx, onlyDef = false) => {
       let el = select(path, ctx)[0];
-      if (!el) return '';
+      if (!el) return onlyDef ? undefined : '';
       let atn = qname(attr, nsMap);
       if (atn.ns) return el.getAttributeNS(atn.ns, atn.ln);
       return el.getAttribute(atn.qn);
@@ -247,12 +247,12 @@ export default function omml2mathml (omml) {
       m.el('m:d'),
       (src, out, w) => {
         let attr = {}
-          , begChr = selectAttr('m:dPr[1]/m:begChr', 'm:val', src)
-          , endChr = selectAttr('m:dPr[1]/m:endChr', 'm:val', src)
+          , begChr = selectAttr('m:dPr[1]/m:begChr', 'm:val', src, true)
+          , endChr = selectAttr('m:dPr[1]/m:endChr', 'm:val', src, true)
           , sepChr = selectAttr('m:dPr[1]/m:sepChr', 'm:val', src) || '|'
         ;
-        if (begChr && begChr !== '(') attr.open = begChr;
-        if (endChr && endChr !== ')') attr.close = endChr;
+        if (typeof begChr !== 'undefined' && begChr !== '(') attr.open = begChr;
+        if (typeof endChr !== 'undefined' && endChr !== ')') attr.close = endChr;
         if (sepChr !== ',') attr.separators = sepChr;
         let mfenced = el('mfenced', attr, out);
         select('m:e', src).forEach(me => {
