@@ -55,7 +55,9 @@ export default function omml2mathml (omml) {
       m.el('m:f'),
       (src, out, w) => {
         let type = (selectAttr('./m:fPr[last()]/m:type', 'm:val', src) || '').toLowerCase()
-          , outer = el((type === 'lin') ? 'mrow' : 'mfrac', fracProp(type), out)
+          , outer = (type === 'lin')
+                      ? el('mrow', {}, out)
+                      : el('mfrac', fracProp(type), out)
         ;
         let numRow = el('mrow', {}, outer);
         w.walk(numRow, select('m:num[1]', src));
@@ -100,6 +102,7 @@ export default function omml2mathml (omml) {
 }
 
 function fracProp (type) {
+  console.log(`fracProp(${type})`);
   if (type === 'skw' || type === 'lin') return { bevelled: 'true' };
   if (type === 'nobar') return { linethickness: '0pt' };
   return {};
