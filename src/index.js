@@ -72,9 +72,8 @@ export default function omml2mathml (omml) {
     .match(
       m.el('m:r'),
       (src, out) => {
-        let nor = selectAttr('m:rPr[last()]/m:nor', 'm:val', src);
-        if (!nor) nor = false;
-        else nor = forceFalse(nor);
+        let nor = selectAttr('m:rPr[last()]/m:nor', 'm:val', src) || false;
+        if (nor) nor = forceFalse(nor);
         if (nor) {
           let mtext = el('mtext', {}, out);
           mtext.textContent = nbsp(select('.//m:t', src)
@@ -184,13 +183,31 @@ export default function omml2mathml (omml) {
         ;
       }
     )
+    .match(
+      m.el('m:rad'),
+      (src, out, w) => {
+        let degHide = selectAttr('m:radPr[last()]/m:degHide', 'm:val', src) || false;
+        if (degHide) degHide = forceFalse(degHide);
+        if (degHide) {
+          let msqrt = el('msqrt', {}, out);
+          w.walk(msqrt, select('m:e[1]', src));
+        }
+        else {
+          let outer = el('mroot', {}, out)
+            , row1 = el('mrow', {}, outer)
+            , row2 = el('mrow', {}, outer)
+          ;
+          w.walk(row1, select('m:e[1]', src));
+          w.walk(row2, select('m:deg[1]', src));
+        }
+      }
+    )
 
     .run(omml)
   ;
 }
 
 function fracProp (type) {
-  console.log(`fracProp(${type})`);
   if (type === 'skw' || type === 'lin') return { bevelled: 'true' };
   if (type === 'nobar') return { linethickness: '0pt' };
   return {};
