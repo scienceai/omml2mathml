@@ -27,7 +27,7 @@
   "homepage": "https://github.com/scienceai/omml2mathml",
   "dependencies": {
     "get-dom": "1.2.0",
-    "marcheur": "0.2.0",
+    "marcheur": "0.2.2",
     "xpath": "0.0.23"
   },
   "devDependencies": {
