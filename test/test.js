@@ -17,7 +17,7 @@ describe('omml2mathml conversion', () => {
         name.push(f);
         let abs = path.join(baseDir, f);
         if (/\.omml$/.test(f)) omml.push(fs.readFileSync(abs, 'utf8'));
-        if (/\.html$/.test(f)) html.push(fs.readFileSync(abs, 'utf8'));
+        if (/\.html$/.test(f)) html.push(fs.readFileSync(abs, 'utf8').replace(/ xmlns=".*?"/, ''));
       })
     ;
     omml.forEach((om, idx) => {
@@ -25,6 +25,8 @@ describe('omml2mathml conversion', () => {
         , doc = new xmldom.DOMParser().parseFromString(om)
         , math = omml2mathml(doc)
       ;
+      console.log(`math=${math.outerHTML}`);
+      console.log(`html=${html[idx]}`);
       assert.equal(html[idx], math.outerHTML, `successful mapping of ${n}`);
     });
   });
