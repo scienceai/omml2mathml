@@ -96,6 +96,63 @@ export default function omml2mathml (omml) {
         }
       }
     )
+    .match(
+      m.el('m:limLow'),
+      (src, out, w) => {
+        let outer = el('munder', {}, out)
+          , row1 = el('mrow', {}, outer)
+          , row2 = el('mrow', {}, outer)
+        ;
+        w.walk(row1, select('m:e[1]', src));
+        w.walk(row2, select('m:lim[1]', src));
+      }
+    )
+    .match(
+      m.el('m:limUpp'),
+      (src, out, w) => {
+        let outer = el('mover', {}, out)
+          , row1 = el('mrow', {}, outer)
+          , row2 = el('mrow', {}, outer)
+        ;
+        w.walk(row1, select('m:e[1]', src));
+        w.walk(row2, select('m:lim[1]', src));
+      }
+    )
+    .match(
+      m.el('m:sSub'),
+      (src, out, w) => {
+        let outer = el('msub', {}, out)
+          , row1 = el('mrow', {}, outer)
+          , row2 = el('mrow', {}, outer)
+        ;
+        w.walk(row1, select('m:e[1]', src));
+        w.walk(row2, select('m:sub[1]', src));
+      }
+    )
+    .match(
+      m.el('m:sSup'),
+      (src, out, w) => {
+        let outer = el('msup', {}, out)
+          , row1 = el('mrow', {}, outer)
+          , row2 = el('mrow', {}, outer)
+        ;
+        w.walk(row1, select('m:e[1]', src));
+        w.walk(row2, select('m:sup[1]', src));
+      }
+    )
+    .match(
+      m.el('m:sSubSup'),
+      (src, out, w) => {
+        let outer = el('msubsup', {}, out)
+          , row1 = el('mrow', {}, outer)
+          , row2 = el('mrow', {}, outer)
+          , row3 = el('mrow', {}, outer)
+        ;
+        w.walk(row1, select('m:e[1]', src));
+        w.walk(row2, select('m:sub[1]', src));
+        w.walk(row3, select('m:sup[1]', src));
+      }
+    )
 
     .run(omml)
   ;
