@@ -28,9 +28,6 @@ describe('omml2mathml conversion', function () {
         , doc = new xmldom.DOMParser().parseFromString(om)
         , math = omml2mathml(doc)
       ;
-      console.log(`### ${n}`);
-      console.log(`math=${math.outerHTML}`);
-      console.log(`html=${html[idx]}`);
       assert.equal(html[idx], math.outerHTML, `successful mapping of ${n}`);
     });
   });

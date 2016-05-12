@@ -27,29 +27,25 @@ export default function omml2mathml (omml) {
     , walker = new Marcheur()
   ;
   return walker
-    // #document
-    .match(m.document(),
-      (src, out, w) => {
-        let doc = dom.implementation().createHTMLDocument('')
-          , nod = nodal(doc, {}, nsMap)
-          , math = doc.createElementNS(MATH_NS, 'math')
-        ;
-        math.setAttribute('display', 'inline');
-        el = nod.el;
-        w.result(math);
-        w.walk(math);
-      }
-    )
+    .match(m.document(), setup)
     .match(
       m.el('m:oMathPara'),
       (src, out, w) => {
+        setup(src, out, w);
         w.res.setAttribute('display', 'block');
         w.walk(out);
       }
     )
     .match(
       m.el('m:oMath'),
-      (src, out, w) => w.walk(out)
+      (src, out, w) => {
+        setup(src, out, w);
+        let p = src.parentNode;
+        if (p && p.namespaceURI === nsMap.m && p.localName === 'oMathPara') {
+          w.res.setAttribute('display', 'block');
+        }
+        w.walk(out);
+      }
     )
     .match(
       m.el('m:f'),
@@ -439,7 +435,7 @@ export default function omml2mathml (omml) {
                         .toLowerCase() || false;
         if (zeroAsc) zeroAsc = forceFalse(zeroAsc);
         let zeroDesc = selectAttr('m:phantPr[last()]/m:zeroDesc[last()]', 'm:val', src)
-                        .toLowerCase() || false;;
+                        .toLowerCase() || false;
         if (zeroDesc) zeroDesc = forceFalse(zeroDesc);
         let showVal = forceFalse(selectAttr('m:phantPr[last()]/m:show[last()]', 'm:val', src)
                                     .toLowerCase());
@@ -733,4 +729,16 @@ function createMPaddedAttr ({ zeroWid, zeroAsc, zeroDesc }) {
   if (zeroAsc) attr.height = '0in';
   if (zeroDesc) attr.depth = '0in';
   return attr;
+}
+
+function setup (src, out, w) {
+  if (w.res) return;
+  let doc = dom.implementation().createHTMLDocument('')
+    , nod = nodal(doc, {}, nsMap)
+    , math = doc.createElementNS(MATH_NS, 'math')
+  ;
+  math.setAttribute('display', 'inline');
+  el = nod.el;
+  w.result(math);
+  w.walk(math);
 }
