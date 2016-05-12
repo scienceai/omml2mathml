@@ -416,7 +416,48 @@ export default function omml2mathml (omml) {
         }
       }
     )
-
+    .match(
+      [m.el('m:e'), m.el('m:den'), m.el('m:num'), m.el('m:lim'), m.el('m:sup'), m.el('m:sub')],
+      (src, out, w) => {
+        let scriptlevel = selectAttr('m:argPr[last()]/m:scrLvl', 'm:val', src);
+        if (!scriptlevel) {
+          w.walk(out);
+        }
+        else {
+          let style = el('mstyle', { scriptlevel }, out);
+          w.walk(style);
+        }
+      }
+    )
+    .match(
+      m.el('m:phant'),
+      (src, out, w) => {
+        let zeroWid = selectAttr('m:phantPr[last()]/m:zeroWid[last()]', 'm:val', src)
+                        .toLowerCase() || false;
+        if (zeroWid) zeroWid = forceFalse(zeroWid);
+        let zeroAsc = selectAttr('m:phantPr[last()]/m:zeroAsc[last()]', 'm:val', src)
+                        .toLowerCase() || false;
+        if (zeroAsc) zeroAsc = forceFalse(zeroAsc);
+        let zeroDesc = selectAttr('m:phantPr[last()]/m:zeroDesc[last()]', 'm:val', src)
+                        .toLowerCase() || false;;
+        if (zeroDesc) zeroDesc = forceFalse(zeroDesc);
+        let showVal = forceFalse(selectAttr('m:phantPr[last()]/m:show[last()]', 'm:val', src)
+                                    .toLowerCase());
+        let parent;
+        if (showVal) {
+          parent = el('mpadded', createMPaddedAttr({ zeroWid, zeroAsc, zeroDesc }), out);
+        }
+        else if (!zeroWid && !zeroAsc && !zeroDesc) {
+          parent = el('mphantom', {}, out);
+        }
+        else {
+          let phant = el('mphantom', {}, out);
+          parent = el('mpadded', createMPaddedAttr({ zeroWid, zeroAsc, zeroDesc }), phant);
+        }
+        let row = el('mrow', {}, parent);
+        w.walk(row, select('m:e', src));
+      }
+    )
     .run(omml)
   ;
 }
@@ -684,4 +725,12 @@ function createMEnclodeNotation ({ hideTop, hideBot, hideLeft, hideRight, strike
   if (strikeBLTR) notation.push('updiagonalstrike');
   if (strikeTLBR) notation.push('downdiagonalstrike');
   return { notation: notation.join(' ') };
+}
+
+function createMPaddedAttr ({ zeroWid, zeroAsc, zeroDesc }) {
+  let attr = {};
+  if (zeroWid) attr.width = '0in';
+  if (zeroAsc) attr.height = '0in';
+  if (zeroDesc) attr.depth = '0in';
+  return attr;
 }
