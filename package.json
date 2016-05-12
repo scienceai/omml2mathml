@@ -7,7 +7,8 @@
     "build": "NODE_ENV=\"production\" babel --optional runtime src --out-dir dist",
     "watch": "babel -w --optional runtime src --out-dir dist",
     "ndu": "ndu --open",
-    "test": "mocha --reporter spec --compilers js:babel-core/register --bail"
+    "test": "mocha --reporter spec --compilers js:babel-core/register --bail",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
