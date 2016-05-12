@@ -1,0 +1,7 @@
+machine:
+  node:
+    version: 4.3.0
+
+dependencies:
+  pre:
+    - echo '//registry.npmjs.org/:_authToken='$NPM_PRIVATE_AUTH_TOKEN > $HOME/.npmrc
