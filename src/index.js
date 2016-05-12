@@ -393,6 +393,28 @@ export default function omml2mathml (omml) {
         w.walk(outer, select('m:e[1]', src));
       }
     )
+    .match(
+      m.el('m:bar'),
+      (src, out, w) => {
+        let pos = selectAttr('m:barPr/m:pos', 'm:val', src).toLowerCase();
+        if (pos === 'top') {
+          let outer = el('mover', { accent: 'false' }, out)
+            , row = el('mrow', {}, outer)
+            , mo = el('mo', {}, outer)
+          ;
+          w.walk(row, select('m:e[1]', src));
+          mo.textContent = '\u00af';
+        }
+        else {
+          let outer = el('munder', { underaccent: 'false' }, out)
+            , row = el('mrow', {}, outer)
+            , mo = el('mo', {}, outer)
+          ;
+          w.walk(row, select('m:e[1]', src));
+          mo.textContent = '\u005f';
+        }
+      }
+    )
 
     .run(omml)
   ;
