@@ -1,6 +1,8 @@
 
 # omml2mathml
 
+[![CircleCI](https://circleci.com/gh/scienceai/omml2mathml.svg?style=svg)](https://circleci.com/gh/scienceai/omml2mathml)
+
 Small utility to convert from Microsoft's OMML to MathML.
 
 This is by and large a port of the the `omml2mathml.xsl` XSLT that Microsoft ships with Office and
