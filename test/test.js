@@ -5,7 +5,8 @@ import assert from 'assert';
 import xmldom from 'xmldom';
 import omml2mathml from '../src';
 
-describe('omml2mathml conversion', () => {
+describe('omml2mathml conversion', function () {
+  this.timeout(5 * 1000);
   it('converts all the test documents', () => {
     let baseDir = path.join(__dirname, 'fixtures')
       , name = []

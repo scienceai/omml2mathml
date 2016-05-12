@@ -167,13 +167,14 @@ export default function omml2mathml (omml) {
     .match(
       m.el('m:m'),
       (src, out, w) => {
-        let mcjc = selectAttr('m:mPr[last()]/m:mcs/m:mc/m:mcPr[last()]/m:mcJc/', 'm:val', src)
-          , outer = el('mtable', mcjc ? { columnalign: mcjc } : {}, out)
+        let mcjc = selectAttr('m:mPr[last()]/m:mcs/m:mc/m:mcPr[last()]/m:mcJc', 'm:val', src)
+                      .toLowerCase()
+          , outer = el('mtable', (mcjc && mcjc !== 'center') ? { columnalign: mcjc } : {}, out)
         ;
-        select('./m:mr', src)
+        select('m:mr', src)
           .forEach(mr => {
             let mtr = el('mtr', {}, outer);
-            select('./m:me', mr)
+            select('m:e', mr)
               .forEach(me => {
                 let mtd = el('mtd', {}, mtr);
                 w.walk(mtd, me);
