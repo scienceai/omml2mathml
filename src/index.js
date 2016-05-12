@@ -317,6 +317,49 @@ export default function omml2mathml (omml) {
         }
       }
     )
+    .match(
+      m.el('m:groupChr'),
+      (src, out, w) => {
+        let lastGroupChrPr = select('m:groupChrPr[last()]', src)[0]
+          , pos = selectAttr('m:pos', 'm:val', lastGroupChrPr).toLowerCase()
+          , vertJc = selectAttr('m:vertJc', 'm:val', lastGroupChrPr).toLowerCase()
+          , lastChrVal = selectAttr('m:chr', 'm:val', lastGroupChrPr)
+          , chr = lastChrVal ? lastChrVal.substr(0, 1) : '\u23DF'
+          , mkMrow = (parent) => {
+              let mrow = el('mrow', {}, parent);
+              w.walk(mrow, select('m:e[1]', src));
+            }
+          , mkMo = (parent) => {
+              let mo = el('mo', {}, parent);
+              mo.textContent = chr;
+            }
+        ;
+        if (pos === 'top') {
+          if (vertJc === 'bot') {
+            let outer = el('mover', { accent: 'false' }, out);
+            mkMrow(outer);
+            mkMo(outer);
+          }
+          else {
+            let outer = el('munder', { accentunder: 'false' }, out);
+            mkMo(outer);
+            mkMrow(outer);
+          }
+        }
+        else {
+          if (vertJc === 'bot') {
+            let outer = el('mover', { accent: 'false' }, out);
+            mkMo(outer);
+            mkMrow(outer);
+          }
+          else {
+            let outer = el('munder', { accentunder: 'false' }, out);
+            mkMrow(outer);
+            mkMo(outer);
+          }
+        }
+      }
+    )
 
     .run(omml)
   ;
