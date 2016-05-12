@@ -360,6 +360,39 @@ export default function omml2mathml (omml) {
         }
       }
     )
+    .match(
+      m.el('m:borderBox'),
+      (src, out, w) => {
+        let hideTop = forceTrue(selectAttr('m:borderBoxPr[last()]/m:hideTop[last()]', 'm:val', src)
+                                  .toLowerCase())
+          , hideBot = forceTrue(selectAttr('m:borderBoxPr[last()]/m:hideBot[last()]', 'm:val', src)
+                                  .toLowerCase())
+          , hideLeft = forceTrue(selectAttr('m:borderBoxPr[last()]/m:hideLeft[last()]',
+                                            'm:val', src).toLowerCase())
+          , hideRight = forceTrue(selectAttr('m:borderBoxPr[last()]/m:hideRight[last()]',
+                                              'm:val', src).toLowerCase())
+          , strikeH = forceTrue(selectAttr('m:borderBoxPr[last()]/m:strikeH[last()]', 'm:val', src)
+                                  .toLowerCase())
+          , strikeV = forceTrue(selectAttr('m:borderBoxPr[last()]/m:strikeV[last()]', 'm:val', src)
+                                  .toLowerCase())
+          , strikeBLTR = forceTrue(selectAttr('m:borderBoxPr[last()]/m:strikeBLTR[last()]',
+                                              'm:val', src).toLowerCase())
+          , strikeTLBR = forceTrue(selectAttr('m:borderBoxPr[last()]/m:strikeTLBR[last()]',
+                                              'm:val', src).toLowerCase())
+          , outer
+        ;
+        if (hideTop && hideBot && hideLeft && hideRight &&
+            !strikeH && !strikeV && !strikeBLTR && !strikeTLBR) {
+          outer = el('mrow', {}, out);
+        }
+        else {
+          outer = el('menclose', createMEnclodeNotation({
+            hideTop, hideBot, hideLeft, hideRight, strikeH, strikeV, strikeBLTR, strikeTLBR,
+          }), out);
+        }
+        w.walk(outer, select('m:e[1]', src));
+      }
+    )
 
     .run(omml)
   ;
@@ -391,9 +424,9 @@ function forceFalse (str) {
   return true;
 }
 
-// function forceTrue (str) {
-//   return tf(str) || false;
-// }
+function forceTrue (str) {
+  return tf(str) || false;
+}
 
 function parseMT (ctx, out, { toParse = '', scr, sty, nor }) {
   if (!toParse.length) return;
@@ -611,4 +644,21 @@ let combiMap = {
 };
 function toNonCombining (ch) {
   return combiMap[ch] || ch;
+}
+
+function createMEnclodeNotation ({ hideTop, hideBot, hideLeft, hideRight, strikeH, strikeV,
+                                    strikeBLTR, strikeTLBR }) {
+  let notation = [];
+  if (!hideTop && !hideBot && !hideLeft && !hideRight) notation.push('box');
+  else {
+    if (!hideTop) notation.push('top');
+    if (!hideBot) notation.push('bottom');
+    if (!hideLeft) notation.push('left');
+    if (!hideRight) notation.push('right');
+  }
+  if (strikeH) notation.push('horizontalstrike');
+  if (strikeV) notation.push('verticalstrike');
+  if (strikeBLTR) notation.push('updiagonalstrike');
+  if (strikeTLBR) notation.push('downdiagonalstrike');
+  return { notation: notation.join(' ') };
 }
