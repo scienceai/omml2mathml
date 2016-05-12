@@ -23,4 +23,10 @@ let mathmlElement = omml2mathml(oMathElement);
 
 The input should be an `m:oMath` or `m:oMathPara` element. Note that you can always use the former
 even if it has an `m:oMathPara` parent and the module will correctly set `display="block"` all the
-same.
+same. The object does not need to belong to any specific DOM implementation, it just needs to
+support some basic DOM operations (roughyl DOM 2, and then again not all of it). For instance
+the `xmldom` module will work fine.
+
+It returns an instance of a `math` element as an HTML DOM object, as produced through the
+[`get-dom`](https://www.npmjs.com/package/get-dom) module, which is to say that if you are running
+this in the browser it will be the browser's implementation; if in Node it will be `jsdom`.
