@@ -461,7 +461,7 @@ function parseMT (ctx, out, { toParse = '', scr, sty, nor }) {
     let charToPrint;
     if (select('ancestor::m:fName', ctx)[0]) {
       if (!firstOper && !firstNum) charToPrint = toParse.length;
-      else charToPrint = Math.min(firstOper || Number.MAX_VALUE, firstNum || Number.MAX_VALUE);
+      else charToPrint = Math.min(firstOper || Number.MAX_VALUE, firstNum || Number.MAX_VALUE) - 1;
     }
     else charToPrint = 1;
     let mi = el('mi', tokenAttributes({ scr, sty, nor, charToPrint, tokenType: 'mi' }), out);
@@ -523,7 +523,7 @@ function parseEqArrMr (ctx, out, { toParse = '', scr, sty, nor, align }) {
     else {
       let num = numStart(toParse);
       if (!nor) {
-        let mn = el('mN', tokenAttributes({ sty: 'p', nor, charToPrint: 1, tokenType: 'mn' }), out);
+        let mn = el('mn', tokenAttributes({ sty: 'p', nor, charToPrint: 1, tokenType: 'mn' }), out);
         mn.textContent = toParse.substr(0, num.length);
       }
       else {
