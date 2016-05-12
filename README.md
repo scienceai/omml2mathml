@@ -20,3 +20,7 @@ and returns one output.
 import omml2mathml from 'omml2mathml';
 let mathmlElement = omml2mathml(oMathElement);
 ```
+
+The input should be an `m:oMath` or `m:oMathPara` element. Note that you can always use the former
+even if it has an `m:oMathPara` parent and the module will correctly set `display="block"` all the
+same.
