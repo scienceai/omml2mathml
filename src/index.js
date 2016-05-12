@@ -293,6 +293,30 @@ export default function omml2mathml (omml) {
         w.walk(row2, select('m:e', src));
       }
     )
+    .match(
+      m.el('m:acc'),
+      (src, out, w) => {
+        let mover = el('mover', { accent: 'true' }, out)
+          , row = el('mrow', {}, mover)
+          , acc = selectAttr('m:accPr/m:chr', 'm:val', src).substr(0, 1) || '\u0302'
+          , nonComb = toNonCombining(acc)
+        ;
+        w.walk(row, select('m:e[1]', src));
+        if (acc.length === 0) {
+          el('mo', {}, mover);
+        }
+        else {
+          let nor = selectAttr('m:rPr[last()]/m:nor', 'm:val', src) || false;
+          if (nor) nor = forceFalse(nor);
+          parseMT(src, mover, {
+            toParse:  nonComb,
+            scr:      selectAttr('m:e[1]/*/m:rPr[last()]/m:scr', 'm:val', src),
+            sty:      selectAttr('m:e[1]/*/m:rPr[last()]/m:sty', 'm:val', src),
+            nor,
+          });
+        }
+      }
+    )
 
     .run(omml)
   ;
