@@ -81,7 +81,7 @@ export default function omml2mathml (omml) {
           select('.//m:t', src)
             .forEach(mt => {
               parseMT(src, out, {
-                toParse:  select('./text()', mt).map(t => t.toString()).join(''),
+                toParse:  select('./text()', mt).map(t => t.data).join(''),
                 scr:      selectAttr('../m:rPr[last()]/m:scr', 'm:val', mt),
                 sty:      selectAttr('../m:rPr[last()]/m:sty', 'm:val', mt),
                 nor:      false,
