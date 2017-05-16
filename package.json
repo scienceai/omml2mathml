@@ -1,6 +1,6 @@
 {
   "name": "omml2mathml",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Small utility to convert from Microsoft's OMML to MathML",
   "main": "dist/index.js",
   "scripts": {
