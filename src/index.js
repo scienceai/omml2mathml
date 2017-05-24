@@ -672,7 +672,7 @@ function createEqArrRow (w, src, out, align, cur) {
 }
 
 function countAmp (allMt) {
-  return (allMt || '').match(/&/g).length;
+  return ((allMt || '').match(/&/g) || []).length;
 }
 
 let combiMap = {

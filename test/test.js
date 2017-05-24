@@ -28,7 +28,11 @@ describe('omml2mathml conversion', function () {
         , doc = new xmldom.DOMParser().parseFromString(om)
         , math = omml2mathml(doc)
       ;
-      assert.equal(html[idx], math.outerHTML, `successful mapping of ${n}`);
+      assert.equal(cleanup(html[idx]), cleanup(math.outerHTML), `successful mapping of ${n}`);
     });
   });
 });
+
+function cleanup (str) {
+  return (str || '').replace(/^\s+$/gm, '').replace(/\s+$/gm, '');
+}
