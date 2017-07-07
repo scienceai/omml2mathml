@@ -1,9 +1,10 @@
 
-import fs from 'fs';
-import path from 'path';
-import assert from 'assert';
-import xmldom from 'xmldom';
-import omml2mathml from '../src';
+let fs = require('fs')
+  , path = require('path')
+  , assert = require('assert')
+  , xmldom = require('xmldom')
+  , omml2mathml = require('..')
+;
 
 describe('omml2mathml conversion', function () {
   this.timeout(5 * 1000);

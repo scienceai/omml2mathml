@@ -1,13 +1,12 @@
 
-import Marcheur from 'marcheur';
-import nodal from 'marcheur/lib/nodal';
-import qname from 'marcheur/lib/qname';
-import Matcher from 'marcheur/lib/matcher';
-import dom from 'get-dom';
-import xpath from 'xpath';
-import { oprx } from './operators';
-
-let MATH_NS = 'http://www.w3.org/1998/Math/MathML'
+let Marcheur = require('marcheur')
+  , nodal = require('marcheur/nodal')
+  , qname = require('marcheur/qname')
+  , Matcher = require('marcheur/matcher')
+  , dom = require('get-dom')
+  , xpath = require('xpath')
+  , { oprx } = require('./operators')
+  , MATH_NS = 'http://www.w3.org/1998/Math/MathML'
   , nsMap = {
       m:  'http://schemas.openxmlformats.org/officeDocument/2006/math',
     }
@@ -22,7 +21,7 @@ let MATH_NS = 'http://www.w3.org/1998/Math/MathML'
   , el
 ;
 
-export default function omml2mathml (omml) {
+module.exports = function omml2mathml (omml) {
   let m = new Matcher(nsMap)
     , walker = new Marcheur()
   ;
@@ -456,7 +455,7 @@ export default function omml2mathml (omml) {
     )
     .run(omml)
   ;
-}
+};
 
 function fracProp (type) {
   if (type === 'skw' || type === 'lin') return { bevelled: 'true' };

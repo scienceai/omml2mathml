@@ -1,7 +1,6 @@
 
-import escRx from 'escape-string-regexp';
-
-let operators = [
+let escRx = require('escape-string-regexp')
+  , operators = [
   '\u00A8',
   '\u0021',
   '\u0022',
@@ -1141,4 +1140,4 @@ let operators = [
   '\uFF5C',
   '\uFF5D',
 ];
-export let oprx = new RegExp(operators.map(ch => escRx(ch)).join('|'));
+exports.oprx = new RegExp(operators.map(ch => escRx(ch)).join('|'));
