@@ -1,7 +1,11 @@
-
 # omml2mathml
 
-[![CircleCI](https://circleci.com/gh/scienceai/omml2mathml.svg?style=svg)](https://circleci.com/gh/scienceai/omml2mathml)
+
+This is no longer maintained, use [@scienceai/dedocx](https://github.com/scienceai/dedocx) instead.
+
+
+___
+
 
 Small utility to convert from Microsoft's OMML to MathML.
 
